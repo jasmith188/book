@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import useJournal from './components/useJournal';
+import EntryList from './components/EntryList';
+import Entry from './components/Entry';
 
 function App() {
+  const [entries, storeEntry, removeEntry] = useJournal();
+  const handleAddEntry = (entry) => storeEntry(entry);
+  const handleDeleteEntry = (index) => removeEntry(index);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1 className="text-center">Journal</h1>
+      <Entry addEntry={handleAddEntry} />
+      <EntryList list={entries} deleteEntry={handleDeleteEntry} />
     </div>
   );
 }
